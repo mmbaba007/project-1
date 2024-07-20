@@ -1,0 +1,166 @@
+WindowManager:
+    id: scr_manager
+    Lock_Screen:
+    Home:
+    Content_A:
+    Content_B
+
+
+<Lock_Screen>:
+    name: "lockscreen"
+    Screen:
+        MDFloatLayout:
+            orientation: "vertical"
+
+            Image:
+                source: "tasks.jpeg"
+                fit_mode: "fill"
+                pos_hint: {"top": 1, "center_x": .5}
+
+            MDTextField:
+                id: password
+                mode: "fill"
+                hint_text: "Password"
+                password: True
+                pos_hint: {"top": .8, "center_x": .5}
+                size_hint: .9, .1
+
+            MDRaisedButton:
+                text: "Enter"
+                pos_hint: {"top": .65, "center_x": .62}
+                on_release: root.login()
+
+            MDFlatButton:
+                text: "Delete"
+                pos_hint: {"top": .65, "center_x": .85}
+                on_release: root.delete()
+
+
+<Home>:
+    name: "home"
+
+    Screen:
+        MDFloatLayout:
+            orientation: "vertical"
+            MDTopAppBar:
+                title: "Tasks"
+                pos_hint: {"center_x": .5, "top": 1}
+                #left_action_items: [["menu", lambda x: nav.set_state(open)]]
+
+            MDFlatButton:
+                id: dismiss
+                pos_hint: {"top": 10}
+                on_release: root.dismiss()
+
+            MDLabel:
+                id: clicked_task
+                text: ""
+                pos_hint: {"top": 18, "center_x": .5}
+
+            MDScrollView:
+                orientation: "vertical"
+                size_hint_y: .9
+                pos_hint: {"center_x": .5, "top": .9}
+
+                MDList:
+                    id: list
+
+            Tip:
+                tooltip_text: "Add New Task"
+                tooltip_bg_color: app.theme_cls.primary_light
+                pos_hint: {"top": .2, "center_x": .9}
+
+                MDIconButton:
+                    id: add
+                    icon: "plus"
+                    md_bg_color: self.theme_cls.primary_dark
+                    on_release: root.add()
+
+            Tip:
+                tooltip_text: "Add New Task"
+                tooltip_bg_color: app.theme_cls.primary_light
+                pos_hint: {"top": 10, "center_x": .9}
+
+                MDIconButton:
+                    id: create_list
+                    icon: ""
+                    md_bg_color: self.theme_cls.primary_dark
+                    on_release: root.create_list()
+
+                MDIconButton:
+                    id: dismiss_b
+                    icon: ""
+                    md_bg_color: self.theme_cls.primary_dark
+                    on_release: root.dismiss_b()
+
+                MDIconButton:
+                    id: done
+                    icon: ""
+                    md_bg_color: self.theme_cls.primary_dark
+                    on_release: root.done()
+
+
+
+<Content_A>:
+    label: label
+    task: task
+    name: "content_add"
+    orientation: "vertical"
+    size_hint_y: None
+    height: dp(100)
+    MDLabel:
+        id: label
+        text: "Enter Name"
+        pos_hint: {"top": 1.8, "center_x": .5}
+
+    MDTextField:
+        id: task
+        text: ""
+        pos_hint: {"top": 1, "center_x": .5}
+        hint_text: "Type Here"
+        helper_text: ""
+        helper_text_mode: "on_error"
+        min_text_length: 3
+
+    MDIconButton:
+        icon: "calendar"
+        on_release: root.show_date_picker()
+        pos_hint: {"top": 1, "center_x": .98}
+
+    MDIconButton:
+        icon: "clock"
+        on_release: root.show_time_picker()
+        pos_hint: {"top": 1, "center_x": .88}
+
+    MDFillRoundFlatButton:
+        text: "Add"
+        on_release: root.add()
+        center_x: self.parent.center_x * .5
+
+    MDRoundFlatButton:
+        text: "Cancel"
+        center_x: self.parent.center_x
+        on_release: root.cancel()
+
+
+<Content_B>:
+    label: label
+    name: "content_status"
+    orientation: "vertical"
+    size_hint_y: None
+    height: dp(100)
+    MDLabel:
+        id: label
+        text: "Task Status"
+        halign: "center"
+        pos_hint: {"top": 1.8}
+
+    MDFillRoundFlatButton:
+        text: "Done"
+        on_release: root.done()
+        center_x: self.parent.center_x * .5
+
+    MDRoundFlatButton:
+        text: "Delete"
+        center_x: self.parent.center_x
+        on_release: root.delete()
